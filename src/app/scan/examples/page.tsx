@@ -5,7 +5,7 @@ import examples from '../../../../public/qr/manifest.json'
 
 export default async function QrExamplesPage() {
   const user = await requireUser()
-  return <AppShell user={user} title="QRs de prueba" back="/scan" hideNav>
+  return <AppShell contentWidth="narrow" user={user} title="QRs de prueba" back="/scan" hideNav>
     <div className="space-y-4 p-4">
       <p className="text-sm text-gray-600">Escanea desde otra pantalla o descarga una imagen y súbela al lector. Estos códigos no crean reservas ni modifican datos.</p>
       {examples.map((example) => <article key={example.file} className="rounded-2xl border border-gray-200 bg-white p-4">

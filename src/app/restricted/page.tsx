@@ -7,7 +7,7 @@ export default async function RestrictedPage({ searchParams }: { searchParams: P
   const user = await requireUser()
   const { from } = await searchParams
   return (
-    <AppShell user={user} title="Acceso restringido" hideNav back="/modules">
+    <AppShell contentWidth="narrow" user={user} title="Acceso restringido" hideNav back="/modules">
       <EmptyState icon={<Lock size={26} />} title="No tienes permisos para esta sección">
         {from === 'admin' ? 'Solo los usuarios autorizados como administradores pueden gestionar y cambiar el estado de las solicitudes.' : 'Solo puedes consultar tus propias solicitudes.'}
       </EmptyState>

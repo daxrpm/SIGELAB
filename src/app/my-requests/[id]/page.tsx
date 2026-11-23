@@ -22,7 +22,7 @@ export default async function RequestDetailPage({ params }: { params: Promise<{ 
   const Row = ({ k, v, icon }: { k: string; v: string; icon: React.ReactNode }) => <div className="flex gap-3 border-b border-gray-100 py-3 last:border-0"><span className="mt-0.5 text-gray-400">{icon}</span><div><dt className="text-xs text-gray-500">{k}</dt><dd className="text-sm font-medium">{v}</dd></div></div>
 
   return (
-    <AppShell user={user} title={r.code} back="/my-requests">
+    <AppShell contentWidth="narrow" user={user} title={r.code} back="/my-requests">
       <div className="m-4 flex items-start justify-between rounded-2xl bg-white p-4 shadow-sm">
         <div><p className="text-xs text-gray-500">Estado actual</p><StatusChip status={r.status} /></div>
         <div className="text-right"><p className="text-xs text-gray-500">Registrada</p><p className="text-sm font-medium">{formatDateTime(r.created_at)}</p></div>

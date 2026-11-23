@@ -2,10 +2,10 @@
 @import "@heroui/styles";
 
 @theme {
-  --color-brand: #1b4332;
-  --color-brand-soft: #d8f3dc;
-  --color-admin: #1e3a5f;
-  --color-surface: #f4f6f7;
+  --color-brand: #1a365d;
+  --color-brand-soft: #e8eff8;
+  --color-admin: #1a365d;
+  --color-surface: #f4f6f8;
   /* WCAG AA: darker greys for secondary text (axe color-contrast) */
   --color-gray-400: #6b7280;
   --color-gray-500: #4b5563;
@@ -42,4 +42,77 @@ body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
 }
 @media (prefers-reduced-motion: reduce) {
   :where(a, button, input, select, textarea) { transition: none; }
+}
+
+
+/* One responsive shell shared by all roles, including route loading states. */
+.app-shell { display: flex; flex-direction: column; width: 100%; min-height: 100dvh; background: var(--color-surface); }
+.app-header, .app-main { min-width: 0; }
+.app-header { padding-top: max(0.75rem, env(safe-area-inset-top)); }
+#main-content { scroll-margin-top: 5.5rem; }
+.app-main { flex: 1; padding-bottom: 1rem; }
+.page-content { width: 100%; max-width: 80rem; margin-inline: auto; }
+.page-content--narrow { max-width: 50rem; }
+.app-navigation { position: sticky; bottom: 0; z-index: 20; display: flex; align-items: flex-end; border-top: 1px solid var(--color-gray-200); background: white; padding-bottom: env(safe-area-inset-bottom); }
+.app-navigation--desktop-only, .app-nav-brand, .app-nav-scan-label { display: none; }
+.app-nav-item { min-height: 3.5rem; }
+.skip-link { position: fixed; top: -10rem; left: 1rem; z-index: 110; padding: 0.75rem 1rem; border-radius: 0.5rem; background: white; color: var(--color-brand); font-weight: 600; }
+.skip-link:focus { top: 1rem; }
+.card-grid { display: grid; gap: 0.75rem; }
+.card-grid > li { min-width: 0; }
+.card-grid > li > a { height: 100%; }
+.page-action { position: sticky; bottom: 5rem; z-index: 10; display: flex; justify-content: flex-end; width: fit-content; margin: 1rem 1rem 0 auto; }
+.login-page { min-height: 100dvh; background: white; }
+.login-layout { display: flex; flex-direction: column; width: 100%; max-width: 28rem; min-height: 100dvh; margin-inline: auto; padding: 3rem 1.5rem; }
+.login-form-panel { width: 100%; min-width: 0; }
+.login-footer { margin-top: auto; padding-top: 2.5rem; text-align: center; }
+.availability-scroll { scrollbar-width: thin; }
+::selection { background: var(--color-brand-soft); color: var(--color-brand); }
+@media (max-width: 767px) {
+  .app-main input, .app-main select, .app-main textarea, .login-page input { font-size: 1rem; }
+}
+@media (min-width: 768px) {
+  html, body { background: var(--color-surface); }
+  .page-content { padding: 0.75rem 1rem; }
+  .card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  .module-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  .module-grid > * { min-width: 0; }
+  .filter-strip { flex-wrap: wrap; }
+  .reservation-details { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
+  .reservation-details > * { min-width: 0; margin: 0; }
+  .reservation-details > .reservation-full-row { grid-column: 1 / -1; }
+  .reservation-date-strip { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); }
+  .reservation-date-strip > button { width: 100%; }
+  .detail-properties { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 2rem; }
+  .availability-table th { font-size: 0.8125rem; padding-block: 0.5rem; }
+  .availability-table td > span { width: 2.75rem; height: 2.5rem; }
+  .scanner-content { max-width: 34rem; margin-inline: auto; }
+  .page-action { bottom: 5.5rem; margin-right: 2rem; }
+}
+@media (min-width: 1024px) {
+  .app-shell { display: grid; grid-template-columns: 15rem minmax(0, 1fr); grid-template-rows: auto 1fr; }
+  .app-header { grid-column: 2; grid-row: 1; padding-inline: 1.5rem; }
+  .app-main { grid-column: 2; grid-row: 2; }
+  .app-navigation { grid-column: 1; grid-row: 1 / -1; position: sticky; top: 0; bottom: auto; align-self: start; display: flex; flex-direction: column; align-items: stretch; height: 100dvh; overflow-y: auto; padding: 1.5rem 1rem; border-top: 0; border-right: 1px solid var(--color-gray-200); gap: 0.5rem; }
+  .app-nav-brand { display: flex; align-items: center; gap: 0.75rem; padding: 0.25rem 0.75rem 2rem; color: var(--color-brand); }
+  .app-nav-brand b { font-size: 1.125rem; }
+  .app-nav-item { flex: 0; flex-direction: row; justify-content: flex-start; gap: 0.75rem; min-height: 3rem; padding: 0.75rem; border-radius: 0.5rem; font-size: 0.875rem; }
+  .app-nav-item:hover { background: var(--color-gray-100); }
+  .app-nav-item[aria-current="page"] { background: var(--color-brand-soft); }
+  .app-navigation[data-role="admin"] .app-nav-item[aria-current="page"] { background: var(--color-blue-50); }
+  .app-nav-scanner { flex: 0; align-items: stretch; margin-block: 0.5rem; }
+  .app-nav-scan-link { width: 100%; min-height: 3rem; height: auto; margin: 0; padding: 0.75rem; justify-content: flex-start; gap: 0.75rem; border-radius: 0.5rem; box-shadow: none; font-size: 0.875rem; font-weight: 600; }
+  .app-nav-scan-label { display: inline; }
+  .app-nav-mobile-label { display: none; }
+  .page-action { bottom: 1.5rem; }
+  .login-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; column-gap: 5rem; max-width: 72rem; padding: 4rem 3rem 2rem; }
+  .login-intro { text-align: left; }
+  .login-intro > div { margin-left: 0; }
+  .login-intro h1 { font-size: 2.25rem; line-height: 1.2; }
+  .login-intro > p:last-child { margin-top: 1rem; font-size: 1rem; line-height: 1.6; }
+  .login-footer { grid-column: 1 / -1; align-self: end; }
+  .app-skeleton-nav { gap: 1rem; }
+}
+@media (min-width: 1536px) {
+  .catalog-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }

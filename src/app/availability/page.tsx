@@ -43,7 +43,7 @@ export default async function AvailabilityPage({ searchParams }: { searchParams:
       <p className="mx-4 mt-4 mb-1 text-xs text-gray-500">Fecha</p>
       <DateStrip selected={date} hrefFor={(d) => q({ date: d })} />
       <p className="mx-4 mt-3 mb-1 text-xs text-gray-500">Horario</p>
-      <div className="flex gap-2 overflow-x-auto px-4">
+      <div className="filter-strip flex gap-2 overflow-x-auto px-4">
         {[{ id: null as number | null, label: 'Todo el día' }, ...slots.map((s) => ({ id: s.id as number | null, label: slotLabel(s) }))].map((s) => (
           <Link key={s.label} href={q({ slot: s.id })} aria-current={slotId === s.id} className={`shrink-0 rounded-full border px-3 py-1.5 text-xs font-semibold ${slotId === s.id ? 'border-brand bg-brand text-white' : 'border-gray-200 bg-white'}`}>{s.label}</Link>
         ))}
@@ -63,7 +63,7 @@ export default async function AvailabilityPage({ searchParams }: { searchParams:
       {matrix && all.length > 0 && <AvailabilityMatrix items={all} slots={slots} />}
       <Legend />
       {all.length === 0 ? <EmptyState title="No hay laboratorios registrados" /> : matrix ? null : (
-        <ul className="mx-4 mt-3 space-y-2">
+        <ul className="card-grid mx-4 mt-3">
           {visible.map((item) => {
             const slotCells = slotId ? item.cells.filter((c) => c.slot_id === slotId) : item.cells
             const free = freeSlots(item, slotId)
@@ -93,7 +93,7 @@ export default async function AvailabilityPage({ searchParams }: { searchParams:
         </ul>
       )}
       {user.role === 'professor' && (
-        <Link href={`/reservations/new?date=${date}`} className="fixed bottom-20 right-4 z-10 inline-flex items-center gap-1 rounded-full bg-brand px-4 py-3 text-sm font-semibold text-white shadow-lg"><Plus size={16} />Reservar</Link>
+        <div className="page-action"><Link href={`/reservations/new?date=${date}`} className="inline-flex items-center gap-1 rounded-full bg-brand px-4 py-3 text-sm font-semibold text-white shadow-lg"><Plus size={16} />Reservar</Link></div>
       )}
     </AppShell>
   )

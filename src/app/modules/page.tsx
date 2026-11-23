@@ -1,9 +1,7 @@
 import Link from '@/components/navigation-link'
-import { Bell, ChevronRight, LogOut, FlaskConical, Headset, ImageIcon, LayoutGrid, Laptop, Archive, FileWarning, Network } from 'lucide-react'
-import { signOutAction } from '@/actions/auth'
+import { ChevronRight, Headset, ImageIcon, LayoutGrid, Laptop, Archive, FileWarning, Network } from 'lucide-react'
+import { AppShell } from '@/components/app-shell'
 import { homePathFor, requireUser } from '@/lib/auth'
-import { createClient } from '@/lib/supabase/server'
-import { unreadCount } from '@/services/requests'
 
 const OTHER_MODULES = [
   { name: 'Objetos Perdidos', icon: <Archive size={20} />, tint: 'bg-orange-50 text-orange-500' },
@@ -15,7 +13,6 @@ const OTHER_MODULES = [
 /** Screen 2 of the prototype: Lab-fis module menu. Only "Gestión de espacios" belongs to this group. */
 export default async function ModulesPage() {
   const user = await requireUser()
-  const unread = await unreadCount(await createClient())
   const row = (name: string, icon: React.ReactNode, tint: string) => (
     <div key={name} className="flex items-center gap-3 rounded-xl border border-gray-100 bg-white p-3 opacity-90">
       <span className={`flex h-10 w-10 items-center justify-center rounded-lg ${tint}`}>{icon}</span>
@@ -23,17 +20,13 @@ export default async function ModulesPage() {
     </div>
   )
   return (
-    <div className="mx-auto flex min-h-screen max-w-md flex-col bg-surface shadow-xl">
-      <header className="flex items-center gap-3 bg-brand px-4 py-3 text-white">
-        <div className="flex-1"><h1 className="text-lg font-bold leading-tight">Volver</h1><p className="text-xs opacity-80">Lab-fis · Módulos</p></div>
-        <Link href="/notifications" aria-label="Notificaciones" className="relative"><Bell size={20} />{unread > 0 && <span className="absolute -right-1 -top-1 h-2 w-2 rounded-full bg-red-500" />}</Link>
-        <form action={signOutAction}><button aria-label="Cerrar sesión" title="Cerrar sesión" className="inline-flex h-10 w-10 items-center justify-center"><LogOut size={20} /></button></form>
-      </header>
-      <main className="space-y-3 p-4">
+    <AppShell user={user} title="Módulos" back={false} hideNav>
+      <div className="space-y-4 p-4">
         <div className="flex items-center gap-3 rounded-xl border border-gray-100 bg-white p-4">
           <span className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-brand/60 text-brand"><Network size={26} /></span>
           <div><p className="text-2xl font-bold text-brand">Lab-fis</p><p className="text-xs text-gray-500">Laboratorio de la Facultad de Sistemas</p></div>
         </div>
+        <div className="module-grid space-y-3 md:space-y-0">
         {OTHER_MODULES.slice(0, 3).map((m) => row(m.name, m.icon, m.tint))}
         {OTHER_MODULES.slice(3).map((m) => row(m.name, m.icon, m.tint))}
         <Link href={homePathFor(user.role)} data-testid="module-spaces" className="flex items-center gap-3 rounded-xl border-2 border-brand bg-white p-3">
@@ -42,8 +35,9 @@ export default async function ModulesPage() {
           <ChevronRight size={16} className="text-gray-400" />
         </Link>
         {row('Solicitudes de soporte', <Headset size={20} />, 'bg-pink-50 text-pink-500')}
+        </div>
         <p className="rounded-lg bg-white p-3 text-xs text-gray-500">Toca <b>Gestión de espacios</b> para abrir el módulo de laboratorios. Los demás módulos pertenecen a los otros grupos.</p>
-      </main>
-    </div>
+      </div>
+    </AppShell>
   )
 }

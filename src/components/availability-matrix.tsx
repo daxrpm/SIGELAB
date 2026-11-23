@@ -24,10 +24,11 @@ export function Legend() {
 /** Prototype screen 7: lab × time-block grid. */
 export function AvailabilityMatrix({ items, slots }: { items: LabAvailability[]; slots: TimeSlot[] }) {
   return (
-    <div className="mx-4 mt-3 overflow-x-auto rounded-2xl bg-white p-2 shadow-sm">
-      <table className="w-full border-separate border-spacing-1 text-center">
+    <div className="availability-scroll mx-4 mt-3 overflow-x-auto rounded-2xl bg-white p-2 shadow-sm" role="region" aria-label="Disponibilidad por laboratorio y horario" tabIndex={0}>
+      <table className="availability-table w-full border-separate border-spacing-1 text-center">
+        <caption className="sr-only">Disponibilidad de laboratorios por bloque horario</caption>
         <thead>
-          <tr><th className="w-24" />{slots.map((s) => <th key={s.id} className="text-[10px] font-medium text-gray-500">{s.start_time.slice(0, 2)}h</th>)}</tr>
+          <tr><th scope="col" className="w-24"><span className="sr-only">Laboratorio</span></th>{slots.map((s) => <th scope="col" key={s.id} className="text-[10px] font-medium text-gray-500">{s.start_time.slice(0, 2)}h</th>)}</tr>
         </thead>
         <tbody>
           {items.map((i) => (

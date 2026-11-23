@@ -4,5 +4,5 @@ import { QrScanner } from './qr-scanner'
 
 export default async function ScanPage() {
   const user = await requireUser()
-  return <AppShell user={user} title="Escanear QR" back="/laboratories" hideNav><QrScanner /></AppShell>
+  return <AppShell contentWidth="narrow" user={user} title="Escanear QR" back="/laboratories" hideNav><QrScanner /></AppShell>
 }

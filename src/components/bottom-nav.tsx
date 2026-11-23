@@ -21,24 +21,27 @@ function itemsFor(role: Role): [Item, Item] {
   ]
 }
 
-export function BottomNav({ role, pending = 0 }: { role: Role; pending?: number }) {
+export function BottomNav({ role, pending = 0, hideOnMobile = false }: { role: Role; pending?: number; hideOnMobile?: boolean }) {
   const path = usePathname()
   const [left, right] = itemsFor(role)
   const cell = (i: Item) => {
     const active = i.match.some((m) => path.startsWith(m))
     return (
       <Link key={i.href} href={i.href} aria-current={active ? 'page' : undefined}
-        className={`flex flex-1 flex-col items-center gap-0.5 py-2 text-[11px] font-medium ${active ? (role === 'admin' ? 'text-admin' : 'text-brand') : 'text-gray-400'}`}>
+        className={`app-nav-item flex flex-1 flex-col items-center gap-0.5 py-2 text-[11px] font-medium ${active ? (role === 'admin' ? 'text-admin' : 'text-brand') : 'text-gray-400'}`}>
         <span className="relative">{i.icon}{i.href === '/admin/requests' && pending > 0 && <span data-testid="pending-badge" className="absolute -right-2 -top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[9px] font-bold text-white">{pending}</span>}</span>{i.label}
       </Link>
     )
   }
   return (
-    <nav className="sticky bottom-0 z-20 flex items-end border-t border-gray-200 bg-white" aria-label="Navegación principal">
+    <nav className={`app-navigation${hideOnMobile ? ' app-navigation--desktop-only' : ''}`} aria-label="Navegación principal" data-role={role}>
+      <Link href="/modules" className="app-nav-brand" aria-current={path === '/modules' ? 'page' : undefined}>
+        <FlaskConical size={24} aria-hidden="true" /><span><b>SIGELAB</b><span className="block text-xs font-normal text-gray-500">Gestión de espacios</span></span>
+      </Link>
       {cell(left)}
-      <div className="flex flex-1 flex-col items-center">
-        <Link href="/scan" aria-label="Escanear QR" className={`-mt-6 flex h-12 w-12 items-center justify-center rounded-2xl text-white shadow-lg ${role === 'admin' ? 'bg-admin' : 'bg-brand'}`}><ScanLine size={22} /></Link>
-        <span className="pb-2 pt-0.5 text-[11px] font-medium text-gray-700">Escanear QR</span>
+      <div className="app-nav-scanner flex flex-1 flex-col items-center">
+        <Link href="/scan" aria-label="Escanear QR" aria-current={path.startsWith('/scan') ? 'page' : undefined} className={`app-nav-scan-link -mt-6 flex h-12 w-12 items-center justify-center rounded-2xl text-white shadow-lg ${role === 'admin' ? 'bg-admin' : 'bg-brand'}`}><ScanLine size={22} /><span className="app-nav-scan-label">Escanear QR</span></Link>
+        <span className="app-nav-mobile-label pb-2 pt-0.5 text-[11px] font-medium text-gray-700" aria-hidden="true">Escanear QR</span>
       </div>
       {cell(right)}
     </nav>

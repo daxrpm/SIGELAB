@@ -5,5 +5,5 @@ export const metadata: Metadata = { title: 'SIGELAB · Gestión de espacios', de
 export const viewport: Viewport = { width: 'device-width', initialScale: 1 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return <html lang="es"><body className="min-h-screen antialiased">{children}</body></html>
+  return <html lang="es"><body className="min-h-dvh antialiased">{children}</body></html>
 }

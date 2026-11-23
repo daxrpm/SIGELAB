@@ -22,7 +22,7 @@ export default async function MyRequestsPage({ searchParams }: { searchParams: P
 
   return (
     <AppShell user={user} title="Mis solicitudes">
-      <div className="mt-4 flex gap-2 overflow-x-auto px-4">
+      <div className="mt-4 filter-strip flex gap-2 overflow-x-auto px-4">
         <Link href="/my-requests" aria-current={!status} className={`shrink-0 rounded-full border px-3 py-1.5 text-xs font-semibold ${!status ? 'border-brand bg-brand text-white' : 'border-gray-200 bg-white'}`}>Todas {all.length}</Link>
         {STATUSES.map((s) => <Link key={s} href={`/my-requests?status=${s}`} aria-current={status === s} className={`shrink-0 rounded-full border px-3 py-1.5 text-xs font-semibold ${status === s ? 'border-brand bg-brand text-white' : 'border-gray-200 bg-white'}`}>{STATUS_LABEL[s]}s {count(s)}</Link>)}
       </div>
@@ -30,7 +30,7 @@ export default async function MyRequestsPage({ searchParams }: { searchParams: P
       {items.length === 0 ? (
         <EmptyState icon={<ClipboardList size={26} />} title="No hay solicitudes">{status ? 'No tienes solicitudes con este estado.' : 'Aún no has registrado solicitudes de reserva.'}</EmptyState>
       ) : (
-        <ul className="mt-2 space-y-3 px-4">
+        <ul className="card-grid mt-2 px-4">
           {items.map((r) => (
             <li key={r.id}>
               <Link href={`/my-requests/${r.id}`} className="block rounded-2xl border border-gray-100 bg-white p-3 shadow-sm" data-testid={`request-${r.code}`}>
@@ -43,7 +43,7 @@ export default async function MyRequestsPage({ searchParams }: { searchParams: P
           ))}
         </ul>
       )}
-      <Link href="/reservations/new" className="fixed bottom-20 right-4 z-10 inline-flex items-center gap-1 rounded-full bg-brand px-4 py-3 text-sm font-semibold text-white shadow-lg"><Plus size={16} />Nueva</Link>
+      <div className="page-action"><Link href="/reservations/new" className="inline-flex items-center gap-1 rounded-full bg-brand px-4 py-3 text-sm font-semibold text-white shadow-lg"><Plus size={16} />Nueva</Link></div>
     </AppShell>
   )
 }
