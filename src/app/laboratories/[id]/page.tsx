@@ -38,7 +38,7 @@ export default async function LabDetailPage({ params }: { params: Promise<{ id: 
   const software = list(lab.software), extra = list(lab.extra_equipment)
 
   return (
-    <AppShell user={user} title={lab.code} back="/laboratories">
+    <AppShell contentWidth="narrow" user={user} title={lab.code} back="/laboratories">
       <section className="m-4 rounded-2xl bg-brand p-4 text-white">
         <span className="rounded-md bg-white/15 px-2 py-0.5 text-xs font-semibold">{lab.code}</span>
         <h2 className="mt-3 text-xl font-bold">{lab.name}</h2>
@@ -47,7 +47,7 @@ export default async function LabDetailPage({ params }: { params: Promise<{ id: 
       </section>
       <div className="mx-4"><Notice tone={notice.tone} title={notice.title}>{notice.body}</Notice></div>
       <h3 className="mx-4 mt-5 font-semibold">Características</h3>
-      <dl className="mx-4 mt-2 rounded-2xl bg-white px-4 shadow-sm">
+      <dl className="detail-properties mx-4 mt-2 rounded-2xl bg-white px-4 shadow-sm">
         <Row label="Ubicación" icon={<MapPin size={16} />}>{locationLabel(lab)}</Row>
         <Row label="Capacidad" icon={<Users size={16} />}>{lab.capacity} personas</Row>
         <Row label="Computadoras" icon={<Monitor size={16} />} missing={lab.computers_count === null}>{lab.computers_count === null ? NO_INFO : lab.computers_count === 0 ? 'Sin computadoras fijas' : `${lab.computers_count} equipos de escritorio`}</Row>

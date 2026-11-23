@@ -40,7 +40,7 @@ export default async function LaboratoriesPage({ searchParams }: { searchParams:
         <input name="q" defaultValue={q} placeholder="Laboratorio, aula o software" aria-label="Buscar laboratorio" className="w-full py-2.5 text-sm outline-none" />
         <input type="hidden" name="filter" value={filter} />
       </Form>
-      <div className="mt-3 flex gap-2 overflow-x-auto px-4">
+      <div className="mt-3 filter-strip flex gap-2 overflow-x-auto px-4">
         {FILTERS.map(([k, label]) => (
           <Link key={k} href={href(k)} aria-current={filter === k} className={`shrink-0 rounded-full border px-3 py-1 text-xs font-semibold ${filter === k ? 'border-brand bg-brand text-white' : 'border-gray-200 bg-white'}`}>{label}</Link>
         ))}
@@ -54,7 +54,7 @@ export default async function LaboratoriesPage({ searchParams }: { searchParams:
       ) : labs.length === 0 ? (
         <EmptyState icon={<Search size={26} />} title="Sin resultados">Ningún laboratorio coincide con tu búsqueda.</EmptyState>
       ) : (
-        <ul className="mt-2 space-y-3 px-4">
+        <ul className="card-grid catalog-grid mt-2 px-4">
           {labs.map((lab) => (
             <li key={lab.id}>
               <Link href={`/laboratories/${lab.id}`} className="flex items-center gap-3 rounded-2xl border border-gray-100 bg-white p-3 shadow-sm">

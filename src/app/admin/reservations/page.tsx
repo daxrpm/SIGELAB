@@ -40,7 +40,7 @@ export default async function AdminReservationsPage({ searchParams }: { searchPa
 
   return (
     <AppShell user={user} title="Registro de reservas">
-      <Form action="/admin/reservations" className="mx-4 mt-4 space-y-2" role="search">
+      <Form action="/admin/reservations" className="mx-4 mt-4 grid gap-2 md:grid-cols-2" role="search">
         <div className="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-3"><Search size={16} className="text-gray-400" /><input name="q" defaultValue={q} aria-label="Buscar" placeholder="Buscar docente, motivo o código" className="w-full py-2.5 text-sm outline-none" /></div>
         <AutoSubmitSelect name="lab" label="Laboratorio" defaultValue={labId ?? ''} className="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm">
           <option value="">Todos los laboratorios</option>
@@ -49,7 +49,7 @@ export default async function AdminReservationsPage({ searchParams }: { searchPa
         {status !== 'all' && <input type="hidden" name="status" value={status} />}
         {onlyConflicts && <input type="hidden" name="conflicts" value="1" />}
       </Form>
-      <div className="mt-3 flex gap-2 overflow-x-auto px-4">
+      <div className="mt-3 filter-strip flex gap-2 overflow-x-auto px-4">
         <Link href={href({ status: undefined })} aria-current={status === 'all'} className={`shrink-0 rounded-full border px-3 py-1.5 text-xs font-semibold ${status === 'all' ? 'border-admin bg-admin text-white' : 'border-gray-200 bg-white'}`}>Todas <span data-testid="count-all">{counts.all}</span></Link>
         {STATUSES.map((s) => <Link key={s} href={href({ status: s })} aria-current={status === s} className={`shrink-0 rounded-full border px-3 py-1.5 text-xs font-semibold ${status === s ? 'border-admin bg-admin text-white' : 'border-gray-200 bg-white'}`}>{STATUS_LABEL[s]}s <span data-testid={`count-${s}`}>{counts[s]}</span></Link>)}
       </div>
@@ -67,7 +67,7 @@ export default async function AdminReservationsPage({ searchParams }: { searchPa
           {groupByDate(rows).map(([date, items]) => (
             <section key={date}>
               <h3 className="mb-2 text-[11px] font-bold uppercase tracking-wide text-gray-500">{formatLongDate(date)}</h3>
-              <ul className="space-y-2">
+              <ul className="card-grid">
                 {items.map((r) => (
                   <li key={r.id} data-testid={`row-${r.code}`} className="rounded-2xl border border-gray-100 bg-white p-3 shadow-sm">
                     <div className="flex items-center justify-between gap-2"><span className="text-xs font-semibold">{r.code}</span><span className="flex gap-1">{r.has_conflict && <ConflictChip />}<StatusChip status={r.status} /></span></div>

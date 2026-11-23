@@ -107,7 +107,7 @@ export function QrScanner() {
   const busy = state === 'reading' || state === 'resolving'
   const status = state === 'starting' ? 'Abriendo cámara…' : state === 'scanning' ? 'Buscando un código QR…' : state === 'reading' ? 'Leyendo imagen…' : state === 'resolving' ? 'Abriendo laboratorio…' : 'Cámara apagada'
 
-  return <div className="space-y-5 p-4">
+  return <div className="scanner-content space-y-5 p-4">
     <div><h2 className="text-lg font-bold">Abre un laboratorio con su QR</h2><p className="mt-1 text-sm text-gray-600">Encuadra el código del laboratorio para consultar sus equipos y disponibilidad.</p></div>
     <div className="relative aspect-square overflow-hidden rounded-2xl bg-gray-950" data-testid="scanner-viewport">
       <video ref={video} muted playsInline aria-label="Vista previa de la cámara" className={`h-full w-full object-cover ${cameraActive ? '' : 'invisible'}`} />

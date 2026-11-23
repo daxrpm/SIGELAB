@@ -17,7 +17,7 @@ export default async function NotificationsPage({ searchParams }: { searchParams
   const items = batch.slice(0, 30)
   const link = (id: string | null) => (id && user.role === 'professor' ? `/my-requests/${id}` : null)
   return (
-    <AppShell user={user} title="Notificaciones" back="/">
+    <AppShell contentWidth="narrow" user={user} title="Notificaciones" back="/">
       {items.length === 0 ? <EmptyState icon={<Bell size={26} />} title="Sin notificaciones" /> : (
         <ul className="m-4 space-y-2" data-testid="notifications">
           {items.map((n) => {

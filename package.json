@@ -19,7 +19,8 @@
     "preview:cloudflare": "opennextjs-cloudflare preview",
     "deploy:cloudflare": "opennextjs-cloudflare deploy",
     "test:cloudflare": "PLAYWRIGHT_BASE_URL=http://localhost:3300 playwright test e2e/cloudflare-cookies.spec.ts e2e/authenticated-pages.spec.ts",
-    "prebuild": "node scripts/check-build-env.mjs && node scripts/patch-opennext-cookie.mjs"
+    "prebuild": "node scripts/check-build-env.mjs && node scripts/patch-opennext-cookie.mjs",
+    "test:responsive": "playwright test e2e/layout.spec.ts"
   },
   "dependencies": {
     "@heroui/react": "^3.2.7",

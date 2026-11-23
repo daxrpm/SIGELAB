@@ -37,7 +37,7 @@ export default async function AdminRequestsPage({ searchParams }: { searchParams
       </div>
       <div className="mt-4 flex items-baseline justify-between px-4"><h2 className="font-semibold">Por revisar</h2><span className="text-xs text-gray-500">ordenadas por fecha</span></div>
       {shown.length === 0 ? <EmptyState icon={<Inbox size={26} />} title="No hay solicitudes pendientes">Cuando los docentes envíen solicitudes aparecerán aquí.</EmptyState> : (
-        <ul className="mt-2 space-y-3 px-4">
+        <ul className="card-grid mt-2 px-4">
           {groupByDate(shown).flatMap(([, rows]) => rows).map((r) => <li key={r.id}><ReviewCard r={r} slot={slots.find((s) => s.id === r.slot_id)!} /></li>)}
         </ul>
       )}

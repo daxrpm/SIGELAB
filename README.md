@@ -5,6 +5,8 @@ Stack: **Next.js 16 · TypeScript · Tailwind CSS 4 · HeroUI 3 · Supabase (Aut
 
 **Actualización 2026-11-22:** navegación con feedback inmediato, skeletons por pantalla, búsquedas sin recarga completa y lector QR funcional. Evidencia y límites en [`docs/IMPLEMENTATION_2026-11-22.md`](docs/IMPLEMENTATION_2026-11-22.md).
 
+**Responsive web · 2026-11-23:** móvil, tablet y escritorio, navegación lateral y azul principal `#1A365D`. Capturas, pruebas y límites en [`docs/RESPONSIVE_WEB_2026-11-23.md`](docs/RESPONSIVE_WEB_2026-11-23.md).
+
 **Cloudflare/OpenNext:** build reproducible con adaptador fijado, proxy Node y parche verificado en `workerd` para el bug de cookies. Comandos, variables de build, advertencia experimental y límites del despliegue en [`docs/CLOUDFLARE_COOKIE_FIX.md`](docs/CLOUDFLARE_COOKIE_FIX.md).
 
 ## Probar el lector QR

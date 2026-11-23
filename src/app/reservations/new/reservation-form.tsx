@@ -86,10 +86,10 @@ export function ReservationForm({ labs, slots, requesterName, today, initial }: 
   return (
     <form onSubmit={submit} noValidate className="space-y-4 p-4">
       <div className="rounded-xl bg-white p-3 text-sm shadow-sm"><span className="block text-xs text-gray-500">Solicitante</span><b>{requesterName} (Docente)</b></div>
-      <div className="space-y-4 rounded-2xl bg-white p-4 shadow-sm">
-        <h2 className="font-semibold">Detalles de la reserva</h2>
+      <div className="reservation-details space-y-4 rounded-2xl bg-white p-4 shadow-sm">
+        <h2 className="reservation-full-row font-semibold">Detalles de la reserva</h2>
 
-        <label className="block text-xs text-gray-600">Laboratorio *
+        <label className="reservation-full-row block text-xs text-gray-600">Laboratorio *
           <select value={labId} onChange={(e) => { setLabId(e.target.value); setSlotId(null); clear('labId'); clear('slotId') }} aria-label="Laboratorio" className="mt-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900">
             <option value="">Selecciona un laboratorio</option>
             {labs.map((l) => <option key={l.id} value={l.id}>{l.name} · {l.capacity} pers.</option>)}
@@ -98,18 +98,18 @@ export function ReservationForm({ labs, slots, requesterName, today, initial }: 
           {err('labId')}
         </label>
 
-        <div>
+        <div className="reservation-full-row">
           <p className="text-xs text-gray-600">Fecha *</p>
-          <div className="mt-1 flex gap-2 overflow-x-auto pb-1">
+          <div className="reservation-date-strip mt-1 flex gap-2 overflow-x-auto pb-1">
             {days.map((d) => { const p = dayParts(d); const a = d === date
               return <button type="button" key={d} onClick={() => { setDate(d); setSlotId(null) }} aria-pressed={a} data-testid={`pick-date-${d}`}
                 className={`flex w-12 shrink-0 flex-col items-center rounded-xl border py-1.5 ${a ? 'border-brand bg-brand text-white' : 'border-gray-200'}`}><span className="text-[10px] opacity-70">{p.weekday}</span><span className="text-lg font-bold leading-tight">{p.day}</span><span className="text-[10px] opacity-70">{d === today ? 'hoy' : p.month}</span></button> })}
           </div>
         </div>
 
-        <div>
+        <div className="reservation-full-row">
           <p className="text-xs text-gray-600">Horario *</p>
-          <div className="mt-1 grid grid-cols-2 gap-2">
+          <div className="mt-1 grid grid-cols-2 gap-2 md:grid-cols-4">
             {slots.map((s) => {
               const c = labId ? cellFor(s.id) : undefined
               const status = c?.status ?? 'free'
@@ -147,7 +147,7 @@ export function ReservationForm({ labs, slots, requesterName, today, initial }: 
           {liveCapacityError ? <p role="alert" className="mt-1 text-xs text-red-600">{liveCapacityError}</p> : err('attendees')}
         </label>
 
-        <label className="block text-xs text-gray-600">Motivo de la solicitud *
+        <label className="reservation-full-row block text-xs text-gray-600">Motivo de la solicitud *
           <textarea value={reason} onChange={(e) => { setReason(e.target.value); clear('reason') }} rows={3} maxLength={500} aria-label="Motivo de la solicitud" className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm text-gray-900" />
           {err('reason')}
         </label>

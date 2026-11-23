@@ -13,7 +13,7 @@ export default async function NewReservationPage({ searchParams }: { searchParam
   const today = todayLocal()
   const date = isValidIsoDate(sp.date) && sp.date >= today && sp.date <= addDays(today, 13) ? sp.date : today
   return (
-    <AppShell user={user} title="Nueva reserva" back="/availability" hideNav>
+    <AppShell contentWidth="narrow" user={user} title="Nueva reserva" back="/availability" hideNav>
       <ReservationForm labs={labs} slots={slots} requesterName={user.fullName} initial={{ labId: sp.lab ?? '', date, slotId: sp.slot ? Number(sp.slot) : null }} today={today} />
     </AppShell>
   )
