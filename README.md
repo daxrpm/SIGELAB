@@ -68,7 +68,7 @@ Cuentas demo (contraseña = `DEMO_PASSWORD` de tu `.env.local`): `ana.martinez@`
 | `npm run test:e2e` | Navegador (Playwright/Chromium; primera vez: `npx playwright install chromium`) |
 | `npm run verify:supabase` | Verificación de solo lectura del proyecto |
 
-## Subir a GitHub (lo haces tú; no se ejecutó nada)
+## Subir a GitHub
 ```bash
 cd SIGELAB
 git init && git branch -M main
